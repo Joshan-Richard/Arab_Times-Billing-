@@ -90,7 +90,7 @@ function generateReceiptHtmlForPrint(receiptData: ReceiptData): string {
     </style>
     </head><body>
         <div class="receipt">
-            <div class="header"><h1>Arab Times</h1><h2>Cash Receipt</h2></div>
+            <div class="header"><h2>Cash Receipt</h2></div>
             <div class="details">
                 <p><span>Receipt No:</span> <span>${receiptData.receiptNumber}</span></p>
                 <p><span>Date:</span> <span>${receiptDate.toLocaleString()}</span></p>
