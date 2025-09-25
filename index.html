@@ -8,9 +8,28 @@
 </head>
 <body class="bg-slate-100">
 
-    <div id="print-area"></div>
+    <!-- NEW: LOGIN CONTAINER -->
+    <div id="login-container" class="login-overlay">
+        <div class="login-box animate-fade-in-up">
+            <h1 class="login-title">Arab Times - Billing</h1>
+            <p class="login-subtitle">Please sign in to continue</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="username">User Name</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <p id="login-error" class="login-error-message hidden">Invalid username or password.</p>
+                <button type="submit" class="btn btn-primary w-full">Sign In</button>
+            </form>
+        </div>
+    </div>
 
-    <div id="app-container" class="min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col items-center">
+    <!-- The main application is now hidden by default -->
+    <div id="app-container" class="min-h-screen p-4 sm:p-6 lg:p-8 flex-col items-center hidden">
         <div class="w-full max-w-6xl">
             <header class="text-center mb-6">
                 <h1 class="text-4xl font-bold text-slate-800">Arab Times</h1>
@@ -50,16 +69,9 @@
             </div>
 
             <div id="dashboard-view" class="hidden animate-fade-in-up">
-                <!-- NEW: STATS CARDS -->
                 <div class="stats-grid mb-8">
-                    <div class="stat-card">
-                        <p class="stat-title">Total Revenue</p>
-                        <p id="stat-total-revenue" class="stat-value">₹0.00</p>
-                    </div>
-                     <div class="stat-card">
-                        <p class="stat-title">Total Bills</p>
-                        <p id="stat-total-bills" class="stat-value">0</p>
-                    </div>
+                    <div class="stat-card"><p class="stat-title">Total Revenue</p><p id="stat-total-revenue" class="stat-value">₹0.00</p></div>
+                     <div class="stat-card"><p class="stat-title">Total Bills</p><p id="stat-total-bills" class="stat-value">0</p></div>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow-lg">
@@ -77,15 +89,9 @@
 
     <div id="preview-modal" class="modal-overlay hidden">
         <div class="modal-content animate-fade-in-up">
-            <div class="modal-header">
-                <h2 class="text-xl font-semibold">Receipt Preview</h2>
-                <button id="btn-close-preview" class="modal-close-btn">&times;</button>
-            </div>
+            <div class="modal-header"><h2 class="text-xl font-semibold">Receipt Preview</h2><button id="btn-close-preview" class="modal-close-btn">&times;</button></div>
             <div id="receipt-preview-content" class="modal-body"></div>
-            <div class="modal-footer">
-                <button id="btn-cancel-preview" class="btn btn-secondary">Cancel</button>
-                <button id="btn-confirm-print" class="btn btn-primary">Confirm & Print</button>
-            </div>
+            <div class="modal-footer"><button id="btn-cancel-preview" class="btn btn-secondary">Cancel</button><button id="btn-confirm-print" class="btn btn-primary">Confirm & Print</button></div>
         </div>
     </div>
     
