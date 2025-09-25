@@ -57,11 +57,57 @@ const statTotalBills = doc.getElementById('stat-total-bills')!;
 // --- RECEIPT HTML GENERATION ---
 // This function creates a full, self-contained HTML document for printing
 function generateReceiptHtmlForPrint(receiptData: ReceiptData): string {
-    const itemRows = receiptData.items.map(item => `<tr><td>${item.name}</td><td style="text-align: center;">${item.quantity}</td><td class="text-right">${item.rate.toFixed(2)}</td><td class="text-right">${(item.quantity * item.rate).toFixed(2)}</td></tr>`).join('');
-    // BUG FIX: Always create a new Date object from the timestamp's seconds property
+    // BUG FIX: Replaced with a proper <table> for alignment
+    const itemRows = receiptData.items.map(item => `
+        <tr>
+            <td>${item.name}</td>
+            <td class="center">${item.quantity}</td>
+            <td class="right">${item.rate.toFixed(2)}</td>
+            <td class="right">${(item.quantity * item.rate).toFixed(2)}</td>
+        </tr>`).join('');
+    
     const receiptDate = new Date(receiptData.receiptDate.seconds * 1000);
 
-    return `<!DOCTYPE html><html><head><title>Receipt ${receiptData.receiptNumber}</title><style>body { font-family: 'Courier New', monospace; font-size: 12px; color: #000; margin: 0; } .receipt { width: 300px; margin: 0 auto; } .receipt-header { text-align: center; margin-bottom: 10px; } .receipt-header h1 { margin: 0; font-size: 18px; font-weight: bold; } .receipt-header h2 { margin: 0; font-size: 14px; font-weight: normal; } .receipt-details { padding: 5px 0; border-top: 1px dashed #000; border-bottom: 1px dashed #000; } .receipt-details p { margin: 3px 0; display: flex; justify-content: space-between; } table { width: 100%; border-collapse: collapse; margin-top: 5px; } th, td { padding: 3px 0; } thead th { border-bottom: 1px dashed #000; text-align: left; } .text-right { text-align: right; } .receipt-summary { margin-top: 10px; border-top: 1px dashed #000; padding-top: 5px; } .summary-row { display: flex; justify-content: space-between; margin: 3px 0; } .summary-row.total { font-weight: bold; font-size: 14px; border-top: 1px solid #000; padding-top: 5px; margin-top: 5px; } .receipt-footer { text-align: center; margin-top: 15px; } </style></head><body> <div class="receipt"> <div class="receipt-header"><h1>Arab Times</h1><h2>Cash Receipt</h2></div> <div class="receipt-details"><p><span>Receipt No:</span> <span>${receiptData.receiptNumber}</span></p><p><span>Date:</span> <span>${receiptDate.toLocaleString()}</span></p></div> <table><thead><tr><th>Item</th><th style="text-align: center;">Qty</th><th class="text-right">Rate</th><th class="text-right">Total</th></tr></thead><tbody>${itemRows}</tbody></table> <div class="receipt-summary"><div class="summary-row"><span>Subtotal:</span> <span>${receiptData.subtotal.toFixed(2)}</span></div><div class="summary-row"><span>Discount:</span> <span>-${receiptData.discount.toFixed(2)}</span></div><div class="summary-row total"><span>Grand Total:</span> <span>${formatCurrency(receiptData.grandTotal)}</span></div><div class="summary-row"><span>Payment Mode:</span> <span>${receiptData.paymentMode}</span></div></div> <div class="receipt-footer"><p>Thank you for shopping with us!</p></div> </div> </body></html>`;
+    return `
+    <!DOCTYPE html><html><head><title>Receipt ${receiptData.receiptNumber}</title>
+    <style>
+        body { font-family: 'Courier New', monospace; font-size: 12px; color: #000; margin: 0; }
+        .receipt { width: 300px; margin: 0 auto; }
+        .center { text-align: center; }
+        .right { text-align: right; }
+        .header { text-align: center; margin-bottom: 10px; }
+        .header h1 { margin: 0; font-size: 18px; font-weight: bold; }
+        .header h2 { margin: 0; font-size: 14px; font-weight: normal; }
+        .details { padding: 5px 0; border-top: 1px dashed #000; border-bottom: 1px dashed #000; }
+        .details p { margin: 3px 0; display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        th, td { padding: 3px 0; }
+        thead th { border-bottom: 1px dashed #000; text-align: left; }
+        .summary { margin-top: 10px; border-top: 1px dashed #000; padding-top: 5px; }
+        .summary-row { display: flex; justify-content: space-between; margin: 3px 0; }
+        .summary-row.total { font-weight: bold; font-size: 14px; border-top: 1px solid #000; padding-top: 5px; margin-top: 5px; }
+        .footer { text-align: center; margin-top: 15px; }
+    </style>
+    </head><body>
+        <div class="receipt">
+            <div class="header"><h1>Arab Times</h1><h2>Cash Receipt</h2></div>
+            <div class="details">
+                <p><span>Receipt No:</span> <span>${receiptData.receiptNumber}</span></p>
+                <p><span>Date:</span> <span>${receiptDate.toLocaleString()}</span></p>
+            </div>
+            <table>
+                <thead><tr><th>Item</th><th class="center">Qty</th><th class="right">Rate</th><th class="right">Total</th></tr></thead>
+                <tbody>${itemRows}</tbody>
+            </table>
+            <div class="summary">
+                <div class="summary-row"><span>Subtotal:</span> <span>${receiptData.subtotal.toFixed(2)}</span></div>
+                <div class="summary-row"><span>Discount:</span> <span>-${receiptData.discount.toFixed(2)}</span></div>
+                <div class="summary-row total"><span>Grand Total:</span> <span>${formatCurrency(receiptData.grandTotal)}</span></div>
+                <div class="summary-row"><span>Payment Mode:</span> <span>${receiptData.paymentMode}</span></div>
+            </div>
+            <div class="footer"><p>Thank you for shopping with us!</p></div>
+        </div>
+    </body></html>`;
 }
 // This function creates just the inner HTML for the on-screen preview
 function generateReceiptHtmlForPreview(receiptData: ReceiptData): string {
@@ -121,7 +167,6 @@ async function showDashboard() {
 
         salesHistoryBody.innerHTML = allReceipts.length === 0 ? '<tr><td colspan="5" class="text-center p-4">No sales records found.</td></tr>' : '';
         allReceipts.forEach(r => {
-            // BUG FIX: Correctly handle date conversion here too
             const receiptDate = new Date(r.receiptDate.seconds * 1000);
             salesHistoryBody.innerHTML += `<tr><td><a href="#" class="receipt-link" data-receipt-id="${r.receiptNumber}">${r.receiptNumber}</a></td><td>${receiptDate.toLocaleDateString()}</td><td>${r.items.length}</td><td>${r.paymentMode}</td><td class="text-right font-medium">${formatCurrency(r.grandTotal)}</td></tr>`;
         });
