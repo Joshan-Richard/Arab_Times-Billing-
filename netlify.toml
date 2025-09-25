@@ -1,0 +1,12 @@
+# Netlify build configuration file
+
+[build]
+  # This command is run to build the site.
+  command = "npm run build"
+  
+  # This is the directory that contains the built site.
+  publish = "dist"
+
+[build.environment]
+  # Specify the Node.js version to use.
+  NODE_VERSION = "18"

@@ -1,0 +1,136 @@
+/* --- src/style.css --- */
+
+/* Basic Reset & Font */
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #334155;
+    background-color: #f1f5f9;
+    margin: 0;
+}
+
+/* Layout */
+.p-4 { padding: 1rem; }
+.sm\:p-6 { padding: 1.5rem; }
+.lg\:p-8 { padding: 2rem; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.w-full { width: 100%; }
+.max-w-6xl { max-width: 72rem; }
+.min-h-screen { min-height: 100vh; }
+.gap-8 { gap: 2rem; }
+.gap-3 { gap: 0.75rem; }
+.space-x-2 > :not([hidden]) ~ :not([hidden]) { margin-left: 0.5rem; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-4 { margin-top: 1rem; }
+.self-start { align-self: flex-start; }
+
+/* Grid & Responsiveness */
+.main-layout { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 1024px) {
+    .main-layout { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .lg\:col-span-2 { grid-column: span 2; }
+    .lg\:col-span-3 { grid-column: span 3; }
+}
+
+/* Typography */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-4xl { font-size: 2.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.text-slate-800 { color: #1e293b; }
+.text-slate-600 { color: #475569; }
+
+/* Elements */
+.bg-white { background-color: #fff; }
+.rounded-lg { border-radius: 0.5rem; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.section-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+.divide-y > :not([hidden]) ~ :not([hidden]) { border-top: 1px solid #e2e8f0; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* NEW: Dashboard Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.stat-card { background-color: #fff; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1); }
+.stat-title { margin: 0; font-size: 0.875rem; color: #64748b; font-weight: 500; }
+.stat-value { margin: 0.25rem 0 0; font-size: 2rem; font-weight: 700; color: #1e293b; }
+
+/* Forms & Buttons */
+.form-label { display: block; font-size: 0.875rem; font-weight: 500; }
+.form-input { margin-top: 0.25rem; display: block; width: 100%; border-radius: 0.375rem; border: 1px solid #cbd5e1; padding: 0.5rem; box-sizing: border-box; }
+.btn { padding: 0.6rem 1rem; border-radius: 0.375rem; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: background-color 0.2s; }
+.btn-primary { background-color: #4f46e5; color: white; }
+.btn-primary:hover { background-color: #4338ca; }
+.btn-success { background-color: #16a34a; color: white; }
+.btn-success:disabled { background-color: #94a3b8; cursor: not-allowed; }
+.btn-secondary { background-color: #e2e8f0; color: #334155; }
+.btn-secondary:hover { background-color: #cbd5e1; }
+.tab-button { padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; border-radius: 0.375rem; background: transparent; border: none; cursor: pointer; }
+.tab-button.active { background-color: #4f46e5; color: white; }
+
+/* Table */
+.table-header { font-size: 0.75rem; text-transform: uppercase; background-color: #f8fafc; }
+.table-header th { padding: 0.75rem 1rem; text-align: left; }
+#sales-history-body tr { border-bottom: 1px solid #e2e8f0; }
+#sales-history-body td { padding: 0.75rem 1rem; }
+.receipt-link { color: #4f46e5; text-decoration: none; font-weight: 500; }
+.receipt-link:hover { text-decoration: underline; }
+
+/* MODAL STYLES */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex; justify-content: center; align-items: center; z-index: 50; padding: 1rem;
+}
+.modal-content {
+    background-color: white; padding: 1.5rem; border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    width: 100%; max-width: 420px;
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.modal-close-btn { font-size: 2rem; line-height: 1; font-weight: bold; border: none; background: transparent; cursor: pointer; color: #6b7280; }
+.modal-body { border: 1px solid #e5e7eb; border-radius: 0.25rem; background-color: #f9fafb; overflow-y: auto; max-height: 60vh; padding: 0.5rem; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* --- THE ULTIMATE PRINT FIX --- */
+/* When printing, hide the main app container completely */
+body.is-printing #app-container {
+    display: none;
+}
+/* When printing, make the print-area visible and position it correctly */
+body.is-printing #print-area {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Utility & Animation */
+.hidden { display: none !important; }
+.animate-fade-in-up { animation: fadeIn 0.3s ease-out, fadeInUp 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Receipt Styles */
+.receipt { width: 300px; margin: 0 auto; font-family: 'Courier New', monospace; font-size: 12px; color: #000; background-color: #fff; }
+.modal-body .receipt { width: 100%; }
+.receipt-header { text-align: center; margin-bottom: 10px; }
+.receipt-header h1 { margin: 0; font-size: 16px; }
+.receipt-details { padding: 5px 0; border-top: 1px dashed #000; border-bottom: 1px dashed #000; }
+.receipt-details p { margin: 3px 0; display: flex; justify-content: space-between; }
+.receipt table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+.receipt th, .receipt td { padding: 3px 0; }
+.receipt thead th { border-bottom: 1px dashed #000; text-align: left; }
+.receipt .text-right { text-align: right; }
+.receipt-summary { margin-top: 10px; border-top: 1px dashed #000; padding-top: 5px; }
+.receipt .summary-row { display: flex; justify-content: space-between; margin: 3px 0; }
+.receipt .summary-row.total { font-weight: bold; font-size: 14px; border-top: 1px solid #000; padding-top: 5px; margin-top: 5px; }
+.receipt-footer { text-align: center; margin-top: 15px; }
